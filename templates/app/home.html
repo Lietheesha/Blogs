@@ -1,0 +1,40 @@
+{% extends "authenticate/base.html" %}
+{% block title %}
+    Home - My Blog
+{% endblock %}
+    
+{% block content %}
+<br>
+    <div class="container">
+        <div class="row">
+            <h4>Blogs</h4>
+            <div class="col-md-9 col-lg-9" style="height: 450px;">
+                <!-- List of all the blogs -->
+                    {% for post in posts %}
+                        <div class="card m-1">
+                            <div class="card-body">
+                                <p class="text-muted">{{ post.name }} - {{ post.date_posted|date:"jS F Y" }}</p>
+                                <h5 class="card-title">{{ post.title }}</h5>
+                                <p style="width: auto; ">{{ post.content|truncatewords:30 }}</p>
+                                <a href="{% url 'post_details' post.id %}" class="btn btn-primary">Read More</a>
+                            </div>
+                        </div>
+                    {% endfor %} 
+            </div>
+            <div class="col-md-2 col-lg-3" style="height: 450px;">
+                <!-- Sidebar -->
+                <div class="card m-1">
+                    <h2 class="card-title ms-3 mt-2">Our Sidebar</h2>
+                    <p class="ms-3 m-1">you can put any information here you'd like</p>
+
+                    <div class="card p-2 ms-2 m-1">Latest Post</div>
+                    <div class="card p-2 ms-2 m-1">Announcement</div>
+                    <div class="card p-2 ms-2 m-1">Calendar</div>
+                    <div class="card p-2 ms-2 m-1">etc</div>
+                </div>
+
+                    
+            </div>
+        </div>
+    </div>
+{% endblock %}    

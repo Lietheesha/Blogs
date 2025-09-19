@@ -1,0 +1,28 @@
+{% extends "authenticate/base.html" %}
+{% block title %}
+     My Blog
+{% endblock %}
+
+{% block content %}
+<br>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <h4>My Blog Posts</h4>
+                {% for post in posts %}
+                <div class="card m-1">
+                    <div class="card-body">
+                        <p class="text-muted">{{ post.user.username }} - {{ post.date_posted|date:"jS F Y" }}</p>
+                        <h5 class="card-title">{{ post.title }}</h5>
+                        <p style="width: auto; ">{{ post.content|truncatewords:30 }}</p>
+                        <a href="{% url 'edit' post.id %}" class="btn btn-secondary">Edit</a>
+                        <a href="{% url 'delete' post.id %}" class="btn btn-danger">Delete</a>
+                    </div>
+                </div>
+                {% empty %}
+                    <p>No blog posts found.</p>
+                {% endfor %}    
+            </div>
+        </div>  
+    </div>
+{% endblock %}

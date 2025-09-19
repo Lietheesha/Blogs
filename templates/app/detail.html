@@ -1,0 +1,25 @@
+{% extends "authenticate/base.html" %}
+{% block title %}
+    Post Details - My Blog
+{% endblock %}
+
+{% block content %}
+<br>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <h4 class="text-center">Post Details</h4>
+                <a href="{% url 'home' %}" class="btn btn-primary">Back to Home</a>
+            </div>
+            <div class="col-md-8 offset-md-2">
+                    <div class="card m-1">
+                        <div class="card-body">
+                            <p class="text-muted">{{ post.user.username }} - {{ post.date_posted|date:"jS F Y" }}</p>
+                            <h5 class="card-title">{{ post.title }}</h5>
+                            <p>{{ post.content }}</p>
+                        </div> 
+                    </div>
+            </div>
+        </div>
+    </div>
+{% endblock %} 
