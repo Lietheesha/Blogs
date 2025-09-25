@@ -9,12 +9,31 @@
         <div class="row">
             <div class="col-md-6 offset-md-3">
                 <h4 class="text-center">Add a New Post</h4>
-                <form method="POST">
+                <form method="POST" id="postForm">
                     {% csrf_token %}
                     {{ form.as_p }}
-                    <a href="{% url 'home' %}"><button type="submit" class="btn btn-primary">Publish</button></a>
+                    <button type="button" class="btn btn-primary" id="add">Publish</button>
+                    <a href="{% url 'home' %}" class="btn btn-secondary" style="float: right;">Cancel</a> 
                 </form>
             </div>
         </div>
     </div>
+        <script>
+            $(document).ready(function(){
+                $('#postForm').on('submit', function(e){
+                    e.preventDefault();  // stop normal form submit
+                    $.ajax({
+                        url: '{% url "add" %}',
+                        type: 'POST',
+                        data: $(this).serialize(),
+                        success: function() {
+                            window.location.href = "{% url 'home' %}";
+                        },
+                        error: function(xhr, status, error) {
+                            alert("An error occurred: " + error);
+                        }
+                    });
+                });
+            });
+        </script>
 {% endblock %} 
