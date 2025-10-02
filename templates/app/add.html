@@ -20,17 +20,17 @@
     </div>
         <script>
             $(document).ready(function(){
-                $('#postForm').on('submit', function(e){
-                    e.preventDefault();  // stop normal form submit
+                $('#add').on('click', function(e){
+                    e.preventDefault(); // stop <a> default redirect
                     $.ajax({
                         url: '{% url "add" %}',
                         type: 'POST',
-                        data: $(this).serialize(),
+                        data: $('#postForm').serialize(), 
                         success: function() {
-                            window.location.href = "{% url 'home' %}";
+                            console.log("success");
                         },
                         error: function(xhr, status, error) {
-                            alert("An error occurred: " + error);
+                            alert("An error occurred:" + error);
                         }
                     });
                 });
