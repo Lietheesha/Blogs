@@ -11,9 +11,14 @@
                 <h4 class="text-center">Add a New Post</h4>
                 <form method="POST" id="postForm">
                     {% csrf_token %}
-                    {{ form.as_p }}
-                    <button type="button" class="btn btn-primary" id="add">Publish</button>
-                    <a href="{% url 'home' %}" class="btn btn-secondary" style="float: right;">Cancel</a> 
+                    <div class="form-group">
+                        <label for="title">Title:</label>
+                        <input type="text" class="form-control" style="height: 1px; width: 45%;" id="title" name="title" required>
+                        <label for="content"> Content </label>
+                        <textarea class="form-control" style="height: 250px;" id="content" name="content" required></textarea>
+                    </div>
+                    <button type="button" class="btn btn-primary mt-3" id="add"style="float: right;">Publish</button>
+                    <a href="{% url 'home' %}" class="btn btn-secondary mt-3" style="padding: 6px;">Cancel</a> 
                 </form>
             </div>
         </div>
@@ -27,7 +32,7 @@
                         type: 'POST',
                         data: $('#postForm').serialize(), 
                         success: function() {
-                            console.log("success");
+                            window.location.href = "{% url 'home' %}";
                         },
                         error: function(xhr, status, error) {
                             alert("An error occurred:" + error);

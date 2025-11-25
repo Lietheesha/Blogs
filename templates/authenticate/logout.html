@@ -14,38 +14,58 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <title>{% block title %}My Blog{% endblock %}</title>
+    <style>
+        .form-control{
+        padding: 1.375rem .75rem ;
+        }
+        .nav-link.btn-outline-light {
+        color: antiquewhite;
+        border-color: antiquewhite;
+        transition: all 0.3s ease;
+        justify-content: end;
+        
+        }
+
+        .nav-link.btn-outline-light:hover {
+        background-color: antiquewhite;
+        color: #0d6efd;
+        }
+
+        .navbar-expand-lg {
+            height: 90px;
+            padding: 10px 20px;
+        }
+
+
+    </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-primary">
-    <div class="container-fluid">
-        <div class="flex items-center space-x-4">
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <div class="container mt-5">
-                        <div class="alert alert-warning text-center" style="color: crimson;">
-                            You have been logged out successfully.
-                        </div>
-                        <div class="text-center mt-3">
-                            <a href="{% url 'login' %}" class="btn btn-primary">Login Again</a>
-                        </div>
-                    </div>
-                </ul>
+    <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+        <div class="container-fluid">
+            <div class="flex items-center space-x-4">
+                <!-- Simple Navbar (only My Blog and Login button) -->
+                <div class="d-flex ms-auto align-items-left">
+                    <a class="navbar-brand text-light">My Blog</a>
+                    <a class="nav-link btn btn-outline-light p-2" href="{% url 'login' %}">
+                        <i class="fa fa-sign-in"></i>
+                        <span class="ms-1">Login</span>
+                    </a>
+                </div>
             </div>
         </div>
+    </nav>
+    <!-- Logout Message Section -->
+    <div class="container mt-5">
+        <div class="alert alert-warning text-center fw-bold" style="color: crimson;">
+            You Have Been Logged Out Successfully.
+        </div>
+        <div class = "text-center">
+            <a href="{% url 'login' %}" class="btn btn-primary">Login Again</a>
+        </div>
     </div>
-</nav>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script>
-    $(document).ready(function() {
-        $('.navbar-nav').hide();
-        $('form.d-flex').hide(); 
-        
-        $('#Logout').on('click',function(){
-            $
-        })
-    });
-    
-</script>
 </body>
 </html>
+
+
+

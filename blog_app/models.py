@@ -30,3 +30,11 @@ class Comment(models.Model):
         return reverse('home', args=[str(self.id)])
 
 
+class ViewProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    bio = models.TextField(max_length=300, blank=True)
+    profile_picture = models.ImageField(upload_to='profile_pic/', default='profile_pic/default.jpg')
+
+    def __str__(self):
+        return f"{self.user.username} Profile"
+

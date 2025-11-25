@@ -5,10 +5,16 @@ from django.contrib.auth.views import LogoutView
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.views.generic import CreateView, UpdateView, DetailView, ListView, DeleteView
-from .models import *
-from .models import Comment, Post
+from .models import Comment, Post, ViewProfile
+from django.contrib.auth.models import User
 
 # Create your views here.
+def forgot_password(request):
+    if request.method == "POST":
+        email = request.POST.get("email")
+        if not email:
+            return JsonResponse({"success":False,"messages":"Please fill the fields"})
+    return render(request,"authenticate/forgot_password.html")
 def login_view(request):
     if request.method == "POST":
         username = request.POST.get("username")
@@ -54,7 +60,7 @@ class EditView(UpdateView):
     model = Post
     template_name = "app/edit.html"
     fields = ["title", "content"]
-    success_url = "/home/"
+    success_url = "/my_blogs/"
 
     def get_object(self, queryset=None):
         return get_object_or_404(Post, id=self.kwargs.get("pk"), user=self.request.user)
@@ -63,7 +69,7 @@ class DeleteView(DeleteView):
     model = Post
     template_name = "app/delete.html"
     context_object_name = "post"
-    success_url = "/home/"
+    success_url = "/my_blogs/"
 
     def get_object(self, queryset=None):
         return get_object_or_404(Post, id=self.kwargs.get("pk"), user=self.request.user)
@@ -73,13 +79,7 @@ def my_blogs(request):
     if posts.exists() or not posts:
         return render(request, "app/my_blogs.html", {"posts": posts})
     
-class CustomLogoutView(LogoutView):
-    template_name = "authenticate/logout.html"
-    http_method_names = ['get', 'post'] 
-    def dispatch(self, request, *args, **kwargs):
-        messages.warning(request, "You have been logged out.")
-        return super().dispatch(request, *args, **kwargs)
-
+@login_required
 def comment(request, post_id):
     if request.method == "POST":
         content = request.POST.get("content")
@@ -107,3 +107,24 @@ def like(request):
             "liked": liked,
             "likes_count": post.likes.count()
         })
+@login_required
+def view_profile(request, username):
+    user = get_object_or_404(User, username=username)
+    profile = ViewProfile.objects.filter(user=user).first()
+    if not profile:
+        profile = ViewProfile.objects.create(user=user)
+    return render(request, "app/view_profile.html", {"profile": profile})
+@login_required
+def change_password(request):
+    if request.method == "POST":
+        email = request.POST.get("email")
+        if not email:
+            return JsonResponse({"success":False,"messages":"Please fill the fields"})
+    return render(request,"app/change_password.html")  
+
+@login_required
+def faq(request):
+    return render(request,"app/faq.html")
+@login_required
+def contact(request):
+    return render(request,"app/contact.html")

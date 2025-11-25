@@ -1,0 +1,28 @@
+{% extends "authenticate/base.html" %}
+{% block title %}
+    Contact Us - My Blog
+{% endblock %}
+
+{% block content %}
+<br>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <h4 class="text-center">Contact Us</h4>
+                <form method="POST" id="contactForm">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" class="form-control" style="height: 5px;" id="name" name="name" required>
+                        <label for="email" class="mt-2">Email:</label>
+                        <input type="email" class="form-control" style="height: 5px;" id="email" name="email" required>
+                        <label for="message" class="mt-2">Message:</label>
+                        <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-3" style="float: right;">Send Message</button>
+                    <a href="{% url 'home' %}" class="btn btn-secondary mt-3" style="padding: 6px;">Cancel</a> 
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

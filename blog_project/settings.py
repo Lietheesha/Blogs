@@ -123,8 +123,8 @@ LOGOUT_REDIRECT_URL = 'login'  # optional, same as next_page
 
 STATIC_URL = "/static/"
 
-STATICFILES_DIRS = [BASE_DIR / "static"]   # your own static files
-STATIC_ROOT = BASE_DIR / "staticfiles"     # Django will copy all static here during collectstatic
+STATICFILES_DIRS = [BASE_DIR / "blog_app/static"]   # your own static files
+STATIC_ROOT = BASE_DIR / "static"     # Django will copy all static here during collectstatic
 
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')

@@ -1,4 +1,5 @@
 {% extends "authenticate/base.html" %}
+{% load static %}
 {% block title %}
     Home - My Blog
 {% endblock %}
@@ -36,13 +37,24 @@
             <div class="col-md-2 col-lg-3" style="height: 450px;">
                 <!-- Sidebar -->
                 <div class="card m-1">
-                    <h2 class="card-title ms-3 mt-2">Our Sidebar</h2>
-                    <p class="ms-3 m-1">you can put any information here you'd like</p>
+                    <h2 class="card-title ms-3 mt-2 me-3">Explore</h2>
+                    <p class="ms-3 m-1">Navigate through blog features easily</p>
 
-                    <div class="card p-2 ms-2 m-1">Latest Post</div>
-                    <div class="card p-2 ms-2 m-1">Announcement</div>
-                    <div class="card p-2 ms-2 m-1">Calendar</div>
-                    <div class="card p-2 ms-2 m-1">etc</div>
+                    <div class="card p-2 ms-2 m-1 me-2">Latest Post
+                        <span class="material-symbols-outlined" style="position: absolute;right: 4%;">
+                            text_ad
+                        </span>
+                    </div>
+                    <div class="card p-2 ms-2 m-1 me-2">Announcement
+                        <span class="material-symbols-outlined" style="position: absolute;right: 4%;">
+                            campaign
+                        </span>
+                    </div>
+                    <div class="card p-2 ms-2 m-1 mb-2 me-2">Calendar
+                        <span class="material-symbols-outlined" style="position: absolute;right: 4%;">
+                            calendar_month
+                        </span>
+                    </div>
                 </div>
 
                     
@@ -76,6 +88,7 @@ $(document).ready(function(){
                     btn.css("font-variation-settings", "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24");
                     btn.css("color", "black");
                 }
+
             },
             error: function(){
                 alert("Something went wrong!");

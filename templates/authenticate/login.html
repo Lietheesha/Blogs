@@ -65,9 +65,16 @@
           <button type="button" class="btn btn-primary w-100" id="login">Login</button>
             <!-- Extra links -->
             <div class="text-center mt-3">
-                <a href="{% url 'login' %}">Forgot password?</a> | <a href="{% url 'login' %}">Register</a>
+                <a href="{% url 'forgot_password' %}">Forgot password?</a> | <a href="{% url 'login' %}">Register</a>
             </div>
         </form>
+        <div id="logout">
+          {% if messages %}
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+          {% endif %}
+        </div>
     </div>
 
   <!-- Bootstrap JS -->
@@ -93,6 +100,29 @@
             if (response.success) { 
               $('#message').html('<div class="alert alert-warning" role="alert">' + response.messages + '</div>');
               window.location.href = '{% url "home" %}';
+            } else {
+              $('#message').html('<div class="alert alert-danger" role="alert">' + response.messages + '</div>');
+            } 
+          },
+          error: function() {
+            $('#message').html("<div class='alert alert-danger' role='alert'>An error occurred. Please try again.</div>");
+          }
+        });
+      });
+    });
+  </script>
+  <script>
+    $(document).ready(function(){
+      $("#logout").on("click", function(){
+        $.ajax({
+          url:'{% url "logout" %}',
+          type: 'POST',
+          data: {
+            'csrfmiddlewaretoken': '{{ csrf_token }}'
+          },
+          success: function(response) {
+            if (response.success) { 
+              $('#message').html('<div class="alert alert-warning" role="alert">' + response.messages + '</div>');
             } else {
               $('#message').html('<div class="alert alert-danger" role="alert">' + response.messages + '</div>');
             } 
